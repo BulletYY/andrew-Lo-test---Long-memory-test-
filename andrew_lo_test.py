@@ -2,9 +2,9 @@ import numpy as np
 
 def lo_test(log_returns, q):
     """
-    q = liczba opóźnień do newey-westa 
+    q =  newey-west lags 
     
-    Q : statystyka Lo
+    Q : Lo statistics
    
     """
     
@@ -12,11 +12,11 @@ def lo_test(log_returns, q):
     T = len(r)
     r_bar = np.mean(r)
     
-    # skumulowane sumy  
+    # cummulative sum  
     cumulative = np.cumsum(r - r_bar)
     R = np.max(cumulative) - np.min(cumulative)
     
-    # estymator wariancji  
+    # variance estimator  
     gamma_0 = np.mean((r - r_bar)**2)
     
     S_q = gamma_0
@@ -28,7 +28,7 @@ def lo_test(log_returns, q):
     
     S_q = np.sqrt(S_q)
     
-    # statystyka Lo
+    # Lo statistics
     Q = R / (S_q * np.sqrt(T))
     
     # 5 % 
@@ -36,8 +36,8 @@ def lo_test(log_returns, q):
     upper = 1.862
     
     if Q < lower or Q > upper:
-        decision = "Odrzucamy H0 (występuje długa pamięć)"
+        decision = "Reject H0 (evidence of long-range dependence)"
     else:
-        decision = "Nie odrzucamy H0 (brak dowodów na długą pamięć)"
+        decision = "Do not reject H0 (no evidence of long-range dependence)"
     
     return Q, decision

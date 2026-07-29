@@ -1,6 +1,17 @@
-from andrew_lo_Test import lo_test
+from andrew_lo_test import lo_test
+import pandas as pd
+import numpy as np
 
 
 
+data=pd.DataFrame({'returns':np.random.normal(0,1,10000)})
 
-#returns = lo_test()
+
+
+value, decision =lo_test(data['returns'],q=int( 4*(data.shape[0]/100)**(2/9))  )  # barlett kernel 
+
+
+print(value,decision)
+
+
+
